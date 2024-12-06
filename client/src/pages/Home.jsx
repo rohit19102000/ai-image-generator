@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import SearchBar from "../components/SearchBar";
+import ImageCard from "../components/Cards/ImageCard";
 
 const Container = styled.div`
   padding: 30px 30px;
@@ -33,14 +35,59 @@ const Span = styled.div`
 `;
 
 
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 1400px;
+  padding: 32px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+`;
+
+const CardWrapper = styled.div`
+  display: grid;
+  gap: 20px;
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 640px) and (max-width: 1199px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 639px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
 
 function Home() {
+  const item = {
+    photo:"https://images.pexels.com/photos/33045/lion-wild-africa-african.jpg?auto=compress&cs=tinysrgb&w=600",
+    Author: "Rohit",
+    Prompt: "hey prompt",
+  }
   return (
     <Container>
       <HeadLine>
         Explore popular posts in the Community !
         <Span>⦾ Generated with AI ⦾</Span>
       </HeadLine>
+
+      <SearchBar/>
+      <Wrapper>
+    <CardWrapper>
+      <ImageCard item={item}/>
+      <ImageCard item={item}/>
+      <ImageCard item={item}/>
+      <ImageCard item={item}/>
+      <ImageCard item={item}/>
+      <ImageCard item={item}/>
+   
+    </CardWrapper>
+      </Wrapper>
     </Container>
   )
 }
