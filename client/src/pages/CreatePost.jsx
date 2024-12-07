@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import GenerateImage from "../components/Form/GenerateImage";
 
 
 
@@ -35,8 +36,8 @@ function CreatePost() {
     <Container>
          
          <Wrapper>
-
-        CreatePost
+         <GenerateImage/>
+        
          </Wrapper>
      </Container>
   )
