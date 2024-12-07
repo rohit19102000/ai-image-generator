@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Button from "../buttons/button";
 import TextInput from "../textInput/TextInput";
 import { AutoAwesome, CreateRounded } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -50,7 +51,26 @@ const Actions = styled.div`
 
 
 
-const GenerateImage = () => {
+const GenerateImage = ({
+    createPostLoading,
+  setcreatePostLoading,
+  generateImageLoading,
+  setGenerateImageLoading,
+  post,
+  setPost,
+}) => {
+    const navigate = useNavigate();
+    const [error, setError] = useState("");
+  
+    const generateImage = async () => {
+      setGenerateImageLoading(true);
+      setError("");
+    };
+    const createPost = async () => {
+      setcreatePostLoading(true);
+      setError("");
+     };
+  
   return (
     <Form>
       <Top>
@@ -62,18 +82,21 @@ const GenerateImage = () => {
       <Body>
       <TextInput
           label="Author"
-          placeholder="Enter your name..."
+          placeholder="Enter your name"
           name="name"
-
-        /> 
+          value={post.name}
+          handelChange={(e) => setPost({ ...post, name: e.target.value })}
+        />
         <TextInput
           label="Image Prompt"
           placeholder="Write a detailed prompt about the image"
           name="prompt"
           textArea
           rows="8"
-          
+          value={post.prompt}
+          handelChange={(e) => setPost({ ...post, prompt: e.target.value })}
         />
+        
 
         you can post the ai generated image to the community
       </Body>
@@ -83,14 +106,21 @@ const GenerateImage = () => {
           text="Generate Image"
           leftIcon={<AutoAwesome />}
           flex
-          
+          isLoading={generateImageLoading}
+          isDisabled={post.prompt === ""}
+          onClick={() =>generateImage()}
         />
+
         <Button
           text="Post Image"
           leftIcon={<CreateRounded />}
           type="secondary"
           flex
-         
+          isDisabled={
+            post.name === "" || post.photo === "" || post.prompt === ""
+          }
+          isLoading={createPostLoading}
+          onClick={() => createPost()}
         />
     </Actions>
     </Form>
