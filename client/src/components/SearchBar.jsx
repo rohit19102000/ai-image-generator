@@ -21,8 +21,9 @@ const SearchBarContainer = styled.div`
 const SearchBar = ({search,setSearch})  => {
   return (
     <SearchBarContainer>
-        <SearchOutlined/>
+        <SearchOutlined sx={{color:"inherit"}}/>
       <input 
+      type="text"
       placeholder="Search with prompt or name..."
        style={{
         border: "none",
@@ -30,6 +31,7 @@ const SearchBar = ({search,setSearch})  => {
         width: "100%",
         background: "inherit",
         fontSize:"16px",
+        color:"inherit",
         
       }}
       value={search}
