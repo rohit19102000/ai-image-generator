@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv"; 
 import posts from "./routes/Posts.js";
+import generateImageRoute from "./routes/GenerateImage.js";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true })); // for form data
 
+app.use("/api/generateImage/", generateImageRoute);
 app.use("/api/post/", posts);
 
 

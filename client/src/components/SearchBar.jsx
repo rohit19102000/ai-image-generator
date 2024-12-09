@@ -18,7 +18,7 @@ const SearchBarContainer = styled.div`
   color: ${({ theme }) => theme.text_secondary};
 `;
 
-const SearchBar = ()  => {
+const SearchBar = ({search,setSearch})  => {
   return (
     <SearchBarContainer>
         <SearchOutlined/>
@@ -32,6 +32,8 @@ const SearchBar = ()  => {
         fontSize:"16px",
         
       }}
+      value={search}
+      onChange={(e)=>setSearch(e.target.value)}
 
       />
         

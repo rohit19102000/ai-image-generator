@@ -4,6 +4,7 @@ import Button from "../buttons/button";
 import TextInput from "../textInput/TextInput";
 import { AutoAwesome, CreateRounded } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { CreatePost, GenerateImageFromPrompt } from "../../api";
 
 
 
@@ -65,11 +66,32 @@ const GenerateImage = ({
     const generateImage = async () => {
       setGenerateImageLoading(true);
       setError("");
+      await GenerateImageFromPrompt({ prompt: post.prompt })
+      .then((res) => {
+        setPost({
+          ...post,
+          photo: `data:image/jpeg;base64,${res?.data?.photo}`,
+        });
+        setGenerateImageLoading(false);
+      })
+      .catch((error) => {
+        setError(error?.response?.data?.message);
+        setGenerateImageLoading(false);
+      });
     };
     const createPost = async () => {
       setcreatePostLoading(true);
       setError("");
-     };
+      await CreatePost(post)
+        .then((res) => {
+          navigate("/");
+          setcreatePostLoading(false);
+        })
+        .catch((error) => {
+          setError(error?.response?.data?.message);
+          setcreatePostLoading(false);
+        });
+    };
   
   return (
     <Form>
@@ -97,7 +119,7 @@ const GenerateImage = ({
           handelChange={(e) => setPost({ ...post, prompt: e.target.value })}
         />
         
-
+    {error && <div style={{color:"red"}}>{error}</div>}
         you can post the ai generated image to the community
       </Body>
       <Actions>
